@@ -1,10 +1,6 @@
-// import { Client } from 'discord.js';
-// const bot = new Client();
-
-const Discord = require('discord.js');
-const bot = new Discord.Client();
-
-const token = 'NzEwOTYwNzk5MzMzNzQ0NzYw.Xr8Ejw.SLM2UsfVLnYUdjXef6G4bbq24Sw';
+const DISCORD = require('discord.js');
+const BOT = new DISCORD.Client();
+const TOKEN = require('./token.js').TOKEN;
 
 const PREFIX = '!';
 // CONST NAMES = ['Sam', 'Rachael', 'Matt', 'Kalani', 'Cam', 'Neo'];
@@ -27,14 +23,14 @@ function shuffle(arra1) {
     return arra1;
 }
 
-bot.on('ready', () => {
-    console.log('This bot is online!');
+BOT.on('ready', () => {
+    console.log('This BOT is online!');
 });
 
-bot.on('message', msg=>{
+BOT.on('message', msg=>{
     // Check for the command prefix
     if(msg.content.substring(0, PREFIX.length) !== PREFIX){
-        return
+        return;
     }
     let args = msg.content.substring(PREFIX.length).split(" ");
     switch(args[0]){
@@ -55,28 +51,27 @@ bot.on('message', msg=>{
             else{
                 let players = args[1];
                 let round = args[2];
-                let cards = [];
                 let deck = [];
                 playerNames = NAMES;
                 // playerNames = []; for(i = 0; i < players; i++){ playerNames.push(`Player ${i + 1}`); }
                 for(i = 0; i < 1000000; i++){// Make an array with numbers 1-100
-                    deck.push(i + 1)
+                    deck.push(i + 1);
                 }
                 msg.channel.send(`Starting round ${round} with ${players} players. Cards range from ${deck[0]} to ${deck[deck.length - 1]}.`);
                 deck = shuffle(deck);
                 // msg.channel.send("Here's the unshuffled deck: " + deck);
 
-                playerCards = []
+                playerCards = [];
                 for(i = 0; i < players; i++){
-                    hand = []
+                    hand = [];
                     for(j = 0; j < round; j++){
-                        hand.push(deck.pop())
+                        hand.push(deck.pop());
                     }
-                    playerCards.push(hand)
+                    playerCards.push(hand);
                 }
                 for(i = 0; i < players; i++){
                     let tail = String(Math.floor(Math.random() * 1000000));
-                    msg.channel.send(`${playerNames[i]}'s cards: ||Hand: ${playerCards[i].sort((a, b)=> a - b)}\\_\\_\\_\\_\\_Tail: ${tail}||`)
+                    msg.channel.send(`${playerNames[i]}'s cards: ||Hand: ${playerCards[i].sort((a, b)=> a - b)}\\_\\_\\_\\_\\_Tail: ${tail}||`);
                 }
             }
             break;
@@ -87,7 +82,7 @@ bot.on('message', msg=>{
             }
             teams = new Array(args[1]);
             for(i = 0; i < args[1]; i++){
-                teams[i] = []
+                teams[i] = [];
             }
             playerNames = shuffle(NAMES);
             // playerNames = []; for(i = 0; i < players; i++){ playerNames.push(`Player ${i + 1}`); }
@@ -103,7 +98,7 @@ bot.on('message', msg=>{
             }
             break;
         case 'COLORS':
-            msg.channel.send(`Colors: ${shuffle(['Red', 'Blue'])}`)
+            msg.channel.send(`Colors: ${shuffle(['Red', 'Blue'])}`);
             break;
         case 'DRUMROLL':
             for(i = 0; i < 6; i++){
@@ -129,33 +124,4 @@ bot.on('message', msg=>{
             break;
     }
 });
-bot.login(token);
-
-// bot.on('message', msg => {
-//     if(msg.content === 'THEMIND'){
-
-//         let round = 5;
-//         let players = 6;
-//         let cards = [];
-//         let deck = [];  
-//         for(i = 0; i < 100; i++){// Make an array with numbers 1-100
-//             deck.push(i + 1)
-//         }
-//         msg.channel.send(`Starting round ${round} with ${players} players. Cards range from ${deck[0]} to ${deck[deck.length - 1]}.`)
-//         deck = shuffle(deck);
-//         // msg.channel.send("Here's the unshuffled deck: " + deck);
-
-//         playerCards = []
-//         for(i = 0; i < players; i++){
-//             hand = []
-//             for(j = 0; j < round; j++){
-//                 hand.push(deck.pop())
-//             }
-//             playerCards.push(hand)
-//         }
-//         for(i = 0; i < players; i++){
-//             let tail = String(Math.floor(Math.random() * 1000000));
-//             msg.channel.send(`Player ${i + 1} has the following hand: ||Hand: ${playerCards[i]} Tail: ${tail}||`)
-//         }
-//     }
-// });
+BOT.login(TOKEN);
