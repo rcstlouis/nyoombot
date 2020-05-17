@@ -7,7 +7,9 @@
 - [Permissions/Generate Link to Install](https://discordapi.com/permissions.html)
 
 ## Possible Extensions
-- Take round and player numbers as parameters
 - Set a timer to remind players to focus at a random time between 1 and 2 minutes of the round ending
 - Let the bot keep track of lives and stars
 - Make a command to play a card
+  - The bot would keep track of whether or not that card is lower than the ones currently played
+  - The bot would also have to know which user corresponds to which player
+- Make commands to play/pause western music
