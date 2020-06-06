@@ -1,10 +1,11 @@
 const DISCORD = require('discord.js');
 const BOT = new DISCORD.Client();
-const TOKEN = require('./token.js').TOKEN;
+
+const SECRETS = require('./nyoom.js');
+const TOKEN = SECRETS.TOKEN;
+const NAMES = SECRETS.NAMES;
 
 const PREFIX = '!';
-// CONST NAMES = ['Sam', 'Rachael', 'Matt', 'Kalani', 'Cam', 'Neo'];
-const NAMES = ['Sam', 'Rachael', 'Matt', 'Kalani'];
 
 function shuffle(arra1) {
     var ctr = arra1.length, temp, index;
@@ -49,11 +50,11 @@ BOT.on('message', msg=>{
         case 'DRUMROLL':
             for(i = 0; i < 6; i++){ msg.channel.send('\\*Drums\\*'); }
             break;
-        case 'FOCUS':
-            msg.channel.send('https://media.giphy.com/media/l4FGHqrRZNPkfoLCw/giphy.gif');
-            break;
         case 'LUIGI':
             msg.channel.send('https://youtu.be/15nNY7uofNw');
+            break;
+        case 'AMIHITLER':
+            msg.channel.send('Yes');
             break;
         case 'HELP':
             msg.channel.send(`Commands:
@@ -69,6 +70,10 @@ BOT.on('message', msg=>{
     }
 });
 BOT.login(TOKEN);
+
+function selectFromArray(array){
+    return array[Math.floor(Math.random() * array.length)];
+}
 
 function theMind(msg, args){
     if(args.length < 1){
@@ -91,7 +96,7 @@ function theMind(msg, args){
         let playerNames = NAMES.slice();  // Make a copy
         // let playerNames = []; for(i = 0; i < players; i++){ playerNames.push(`Player ${i + 1}`); }
         let playerCards = [];
-        for(i = 0; i < max; i++){// Make an array with numbers 1-100
+        for(i = 0; i < max; i++){  // Make an array with numbers 1-100
             deck.push(i + 1);
         }
         let out =`Starting round ${round} with ${players} players. Cards range from ${deck[0]} to ${deck[deck.length - 1]}.`;
